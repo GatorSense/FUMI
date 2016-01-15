@@ -1,0 +1,119 @@
+
+function [P]=FUMI_unmix(Inputdata,E,flag)
+
+
+% unmix data given endmembers with or without sum to one constraint
+%
+%
+% REFERENCE :
+% C. Jiao, A. Zare, 
+% “Functions of Multiple Instances for Learning Target Signatures,”  
+% IEEE transactions on Geoscience and Remote Sensing, DOI: 10.1109/TGRS.2015.2406334
+%
+% SYNTAX : [P]=FUMI_unmix(Inputdata,E,flag)
+
+% Inputs:
+%   InputData: double,d by N or NxMxd matrix, dimensionality d for each feature vector
+%   E: given endmembers
+%   flag: 0 without sum to one constraint, 1 with sum to one constraint
+%
+% Outputs:
+%   P: proportion values
+
+
+% Author: Changzhe Jiao, Alina Zare
+% University of Missouri, Department of Electrical and Computer Engineering
+% Email Address: cjr25@mail.missouri.edu; zarea@missouri.edu
+% Created: October, 2013
+% Latest Revision: January, 2015
+%
+% This product is Copyright (c) 2015 University of Missouri
+% All rights reserved.
+%
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions
+% are met:
+%
+%   1. Redistributions of source code must retain the above copyright
+%      notice, this list of conditions and the following disclaimer.
+%   2. Redistributions in binary form must reproduce the above copyright
+%      notice, this list of conditions and the following disclaimer in the
+%      documentation and/or other materials provided with the distribution.
+%   3. Neither the name of the University nor the names of its contributors
+%      may be used to endorse or promote products derived from this software
+%      without specific prior written permission.
+%
+% THIS SOFTWARE IS PROVIDED BY THE UNIVERSITY OF MISSOURI AND
+% CONTRIBUTORS ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES,
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+% DISCLAIMED.  IN NO EVENT SHALL THE UNIVERSITY OR CONTRIBUTORS
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+% LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
+% LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+% HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+% CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+% OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+% SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+
+%%
+%reshape data i necessary
+
+X=double(Inputdata);
+
+if length(size(X))==3
+    X=FUMI_reshape(X);
+end
+
+
+P=P_Update_KE(X,E,flag);
+
+
+
+
+end
+%%
+
+%unmix
+
+function [P]=P_Update_KE(X,E,flag)
+
+M=size(E,2);
+N=size(X,2);
+
+if M>1
+    Eps=1e-8;
+    DP=Eps*eye(M,M);
+    U=pinv(E'*E+DP);
+    V=E'*X;
+    if flag==0
+        P=U*V;
+    elseif flag==1
+        P=U*(V+ones(M,1)*((1-ones(1,M)*U*V)/(ones(1,M)*U*ones(M,1))));
+    end
+    Z=P<0;
+    while (sum(sum(Z))>0)
+        ZZ = unique(Z', 'rows', 'first')';
+        for i=1:size(ZZ,2)
+            if(sum(ZZ(:,i)))>0
+                eLocs=find(1-ZZ(:,i));
+                rZZi=repmat(ZZ(:,i),1,N);
+                inds=all(Z==rZZi, 1);
+                P_temp=P_Update_KE(X(:,inds),E(:,eLocs),flag);
+                P_temp2=zeros(size(ZZ,1),sum(inds));
+                P_temp2(eLocs,:)=P_temp;
+                P(:,inds)=P_temp2;
+            end
+        end
+    Z=P<0;
+    end
+else
+
+    P=ones(M,N);
+
+end
+
+end
