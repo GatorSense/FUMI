@@ -86,7 +86,13 @@ W(index_plus)=W_plus;
 W(index_minus)=W_minus;
 
 %initialize
-[E_initial,P]=eFUMI_VCA_initialize(X,labels,parameters);
+
+if parameters.init_flag==1
+    [X_pre, E_initial,P]=eFUMI_VCA_initialize(X,labels,parameters);
+elseif parameters.init_flag==2
+    [X_pre, E_initial,P]=eFUMI_KM_initialize(X,labels,parameters);
+end
+
 E=E_initial;
 obj_func=inf;
 Cond=inf;
@@ -94,21 +100,21 @@ Cond=inf;
 for i=1:parameters.iterationCap
     
 %E-step
-    Prob_Z=eFUMI_Prob_Z_Update(X,P,E,labels,parameters);%Estimate probability to be true positive
+    Prob_Z=eFUMI_Prob_Z_Update(X_pre,P,E,labels,parameters);%Estimate probability to be true positive
     
 %M-step
     %update P
     P_old=P;
     gamma_vecs=[0;(parameters.gammaconst./(sum(P_old(2:end,:),2)))];
-    P=eFUMI_P_Update(X,E,Prob_Z,labels,parameters,gamma_vecs);
+    P=eFUMI_P_Update(X_pre,E,Prob_Z,labels,parameters,gamma_vecs);
 
     %update E
     flag_E=parameters.flag_E;
-    E=eFUMI_E_Update(X,P,Prob_Z,labels,parameters,flag_E);
+    E=eFUMI_E_Update(X_pre,P,Prob_Z,labels,parameters,flag_E);
     
     %Condition Update        
     obj_func_old=obj_func;
-    [Cond, obj_func]=eFUMI_Cond_Update(X,P,E,Prob_Z,W,obj_func_old,parameters,gamma_vecs);
+    [Cond, obj_func]=eFUMI_Cond_Update(X_pre,P,E,Prob_Z,W,obj_func_old,parameters,gamma_vecs);
     
     %display condition after each iteration
     fprintf(['Iteration ' num2str(i) '\n']);
