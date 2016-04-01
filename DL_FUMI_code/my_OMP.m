@@ -1,14 +1,23 @@
 function [A, Rec_error] = my_OMP( X, D, k )
 
+% orthogonal matching pursuit
+
+% REFERENCE :
+% C. Jiao, A. Zare, 
+% Multiple Instance Dictionary Learning using Functions of Multiple Instances
+% arXiv preprint arXiv:1511.02825 (2015), http://arxiv.org/abs/1511.02825
+
+% If any of the code is used, the above reference must be cited. 
+
 % Inputs:
-%   X - Inputdata, reshaped hyperspectral image treats each pixel as column vector, d by N
-%   D - Dictionary matrix d by M;
+%   X - Inputdata, treats each pixel as column vector, d by N
+%   D - Dictionary matrix d by T+M;
 %   k - sparsity level, predefined sparse number, |p|_0=k
 
 
 % Outputs:
 
-%   A - Representation value, M by N;
+%   A - Representation value, T+M by N;
 %   Rec_error - Reconstruction error
 
 

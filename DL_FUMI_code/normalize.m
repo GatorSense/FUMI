@@ -1,7 +1,16 @@
 function [X]=normalize(inputdata,flag)
 
+% normalize data
+
+% REFERENCE :
+% C. Jiao, A. Zare, 
+% Multiple Instance Dictionary Learning using Functions of Multiple Instances
+% arXiv preprint arXiv:1511.02825 (2015), http://arxiv.org/abs/1511.02825
+
+% If any of the code is used, the above reference must be cited. 
+
 % Inputs:
-%   Inputdata - Inputdata, reshaped hyperspectral image treats each pixel as column vector, d by N
+%   Inputdata - Inputdata, treats each pixel as column vector, d by N
 %   flag - method to normalize data, 1, normalize data globally between 0 and 1; 2, normalize data individually to norm 1
 
 %

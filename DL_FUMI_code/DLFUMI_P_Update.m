@@ -1,6 +1,13 @@
 function [P]=DLFUMI_P_Update(X,Prob_Z,E,P_old,labels,T,parameters)
 
+% Representation update
 
+% REFERENCE :
+% C. Jiao, A. Zare, 
+% Multiple Instance Dictionary Learning using Functions of Multiple Instances
+% arXiv preprint arXiv:1511.02825 (2015), http://arxiv.org/abs/1511.02825
+
+% If any of the code is used, the above reference must be cited. 
 
 
 % Inputs:

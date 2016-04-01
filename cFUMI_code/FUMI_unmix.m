@@ -7,8 +7,8 @@ function [P]=FUMI_unmix(Inputdata,E,flag)
 %
 % REFERENCE :
 % C. Jiao, A. Zare, 
-% “Functions of Multiple Instances for Learning Target Signatures,”  
-% IEEE transactions on Geoscience and Remote Sensing, DOI: 10.1109/TGRS.2015.2406334
+% Functions of Multiple Instances for Learning Target Signatures,? 
+% IEEE transactions on Geoscience and Remote Sensing, Vol. 53, No. 8, Aug. 2015, DOI: 10.1109/TGRS.2015.2406334
 %
 % SYNTAX : [P]=FUMI_unmix(Inputdata,E,flag)
 

@@ -1,26 +1,12 @@
 function [Cond, obj_func]=cFUMI_Cond_Update(X,P,E,W,obj_func_old,parameters,gamma_vecs)
 
-% Inputs:
-%   X - Inputdata, reshaped hyperspectral image treats each pixel as column vector, d by N
-%   P - Proportion value calculated from the previous iteration, M+1 by N;
-%   E - Endmember matrix calculated from the previous iteration d by M+1;
-%   Prob_Z - probability to indicate the probability of points in positive to be real target 2 by N
-%   W - weight row for entire data
-%   obj_func_old - objective function value of the previous iteration
-%   parameters - struct - parameter structure which can be set using the EF_arameters() function
-%   gamma_vecs - gamma coefficients to promote sparsity
-
-
-% Outputs:
-%   Cond - current change in objective function
-%   obj_func - current objective function value
 
 % This function calculates the objective function value after each iteration
 
 % REFERENCE :
 % C. Jiao, A. Zare, 
-% “Functions of Multiple Instances for Learning Target Signatures,”  
-% IEEE transactions on Geoscience and Remote Sensing, DOI: 10.1109/TGRS.2015.2406334
+% Functions of Multiple Instances for Learning Target Signatures,? 
+% IEEE transactions on Geoscience and Remote Sensing, Vol. 53, No. 8, Aug. 2015, DOI: 10.1109/TGRS.2015.2406334
 %
 % SYNTAX : [Cond, obj_func]=cFUMI_Cond_Update(X,P,E,W,obj_func_old,parameters,gamma_vecs)
 
