@@ -3,8 +3,9 @@ Functions of Multiple Instances and Extended Functions of Multiple Instances
 
 ****************************************************************
 
-NOTE: If the FUMI Algorithm is used in any publication or presentation, the following reference must be cited:  
+NOTE: If cFUMI and eFUMI Algorithms are used in any publication or presentation, the following reference must be cited:  
 C. Jiao, A. Zare, "Functions of Multiple Instances for Learning Target Signatures," IEEE transactions on Geoscience and Remote Sensing, Vol. 53, No. 8, Aug. 2015, DOI: 10.1109/TGRS.2015.2406334
+If DL-FUMI Algorithm is used in any publication or presentation, the following reference must be cited:  
 C. Jiao, A. Zare, "Multiple Instance Dictionary Learning using Functions of Multiple Instances," arXiv preprint arXiv:1511.02825 (2015), http://arxiv.org/abs/1511.02825
 
 ****************************************************************
@@ -36,10 +37,25 @@ The command to run the eFUMI algorithm:
 %   P - Proportion Values, M+1 by N, N accounts for the total number of input data  
 
 
+The command to run the DL-FUMI algorithm:   
+
+[E, P]=DLFUMI(Inputdata,labels,parameters)
+
+% Inputs:
+%   Inputdata - MIL data, d by N, d: number of data dimension, N, total number of data
+%   parameters - struct - parameter structure which can be set using the 'DLFUMI_parameters' function, see 'DLFUMI_parameters' for more explanation  
+%   labels - binary the same size as input data, indicates positive bag with logical '1'
+%
+% Outputs:
+%   E - Estimated dictionary set, d by T+M, T is number of target concepts, M accounts for the number of background endmembers
+%   P - Representation Values, T+M by N 
+
+
+
 ****************************************************************
 
 Files explanation:  
-Latest Revision: January 2015  
+Latest Revision: April 2016
 
 ************
 
@@ -63,6 +79,21 @@ FUMI_unmix.m                                                        -  fully con
 FUMI_viewresults.m                                                  -  proportion map display function  
 normalize.m                                                         -  normalization function  
 VCA.m                                                               -  Vertex Component Analysis algorithm, see reference of the referred paper for more details  
+
+
+************
+
+'...\FUMI_code_and_demo\DL_FUMI_code':  
+DLFUMI.m                                                            -  DLFUMI (Dictionary Learning using Functions of Multiple Instances): semi-supervised target concept learning algorithm
+DLFUMI_Cond_Update.m                                                -  the objective calculation function  
+DLFUMI_E_Update_individual.m                                        -  dictionary set update function, atom by atom  
+DLFUMI_initialize.m                                                 -  DLFUMI initialization function  
+DLFUMI_P_Update.m                                                   -  representation matrix update function  
+DLFUMI_parameters.m                                                 -  parameters generating function used during the DLFUMI algorithm, please change accordingly  
+DLFUMI_Prob_Z_Update.m                                              -  probability estimate function to conduct the E-step of DLFUMI  
+normalize.m                                                         -  normalization function  
+my_OMP                                                              -  sparse coding function using orthogonal matching pursuit
+
 
 ************
 
@@ -109,22 +140,6 @@ noisy_data_SNR_20.mat                                               -  noisy syn
 noisy_data_SNR_30.mat                                               -  noisy synthetic data with SNR=30 dB; bag-level and instance-level labels  
 noisy_data_SNR_40.mat                                               -  noisy synthetic data with SNR=40 dB; bag-level and instance-level labels  
 random_data.mat                                                     -  random synthetic data; bag-level and instance-level labels  
-
-
-
-************
-
-'...\FUMI_code_and_demo\DL_FUMI_code':  
-DLFUMI.m                                                            -  DLFUMI (Dictionary Learning using Functions of Multiple Instances): semi-supervised target concept learning algorithm
-DLFUMI_Cond_Update.m                                                -  the objective calculation function  
-DLFUMI_E_Update_individual.m                                        -  dictionary set update function, atom by atom  
-DLFUMI_initialize.m                                                 -  DLFUMI initialization function  
-DLFUMI_P_Update.m                                                   -  representation matrix update function  
-DLFUMI_parameters.m                                                 -  parameters generating function used during the DLFUMI algorithm, please change accordingly  
-DLFUMI_Prob_Z_Update.m                                              -  probability estimate function to conduct the E-step of DLFUMI  
-normalize.m                                                         -  normalization function  
-my_OMP                                                              -  sparse coding function using orthogonal matching pursuit
-
 
 
 ****************************************************************
