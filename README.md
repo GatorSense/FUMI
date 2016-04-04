@@ -5,6 +5,7 @@ Functions of Multiple Instances and Extended Functions of Multiple Instances
 
 NOTE: If cFUMI and eFUMI Algorithms are used in any publication or presentation, the following reference must be cited:  
 C. Jiao, A. Zare, "Functions of Multiple Instances for Learning Target Signatures," IEEE transactions on Geoscience and Remote Sensing, Vol. 53, No. 8, Aug. 2015, DOI: 10.1109/TGRS.2015.2406334
+
 If DL-FUMI Algorithm is used in any publication or presentation, the following reference must be cited:  
 C. Jiao, A. Zare, "Multiple Instance Dictionary Learning using Functions of Multiple Instances," arXiv preprint arXiv:1511.02825 (2015), http://arxiv.org/abs/1511.02825
 
