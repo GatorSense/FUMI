@@ -1,5 +1,5 @@
 # FUMI
-Functions of Multiple Instances and Extended Functions of Multiple Instances  
+Functions of Multiple Instances, Extended Functions of Multiple Instances and Dictionary Learning using Functions of Multiple Instances
 
 ****************************************************************
 
