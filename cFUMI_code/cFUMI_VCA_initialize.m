@@ -77,7 +77,7 @@ e_t=X_plus(:,idx_et);
 
 E=[e_t E_minus];
 
-if parameters.flag_E==1
+if parameters.flag_E==2
     E=normalize(E,2);
 end
 
