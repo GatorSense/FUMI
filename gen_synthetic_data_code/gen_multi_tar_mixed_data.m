@@ -1,4 +1,4 @@
-function [X,P,labels_bag,labels_point]=gen_multi_tar_mixed_data(E_t,E_minus,num_pbags,num_nbags,num_points,n_tar,N_b,Pt_mean,sigma,expect_SdB)
+function [X,P,labels_bag,labels_point,bag_number]=gen_multi_tar_mixed_data(E_t,E_minus,num_pbags,num_nbags,num_points,n_tar,N_b,Pt_mean,sigma,expect_SdB)
 
 %This function generates synthetic data set following the definition of multiple instance learning problem
 
@@ -26,6 +26,7 @@ function [X,P,labels_bag,labels_point]=gen_multi_tar_mixed_data(E_t,E_minus,num_
 %   P - proportion set in column vectors
 %   labels_bag - bag level label per data point
 %   labels_point - instance level label per data point
+%   bag_number - bag number per data point
 
 
 % Author: Changzhe Jiao, Alina Zare
@@ -69,6 +70,7 @@ X=[];
 P=[];
 labels_bag=[];
 labels_point=[];
+bag_number = [];
 
 %loop in positive bags
 
@@ -83,6 +85,7 @@ for i=1:num_pbags
         [x,p]=gen_individual_LMM_point(E_t,E_minus,temp_bag_label,temp_point_label,N_b,Pt_mean,sigma,expect_SdB);
         X(:,(i-1)*num_points+j)=x;
         P(:,(i-1)*num_points+j)=p;
+        bag_number((i-1)*num_points+j) = i;
     end
     
     % generate false positive points
@@ -94,6 +97,7 @@ for i=1:num_pbags
         [x,p]=gen_individual_LMM_point(E_t,E_minus,temp_bag_label,temp_point_label,N_b,Pt_mean,sigma,expect_SdB);
         X(:,(i-1)*num_points+j)=x;
         P(:,(i-1)*num_points+j)=p;
+        bag_number((i-1)*num_points+j) = i;
     end    
     
 end
@@ -108,6 +112,7 @@ for i=num_pbags+1:num_pbags+num_nbags
         [x,p]=gen_individual_LMM_point(E_t,E_minus,temp_bag_label,temp_point_label,N_b,Pt_mean,sigma,expect_SdB);
         X(:,(i-1)*num_points+j)=x;
         P(:,(i-1)*num_points+j)=p;
+        bag_number((i-1)*num_points+j) = i;
     end    
     
 end
