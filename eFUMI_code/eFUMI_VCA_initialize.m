@@ -1,11 +1,11 @@
-function [E,P]=eFUMI_VCA_initialize(X,labels,parameters)
+function [Data_pre,E,P]=eFUMI_VCA_initialize(X,labels,parameters)
 
 % This function initializes eFUMI using VCA by computing corresponding unmixing errors
 
 % REFERENCE :
 % C. Jiao, A. Zare, 
-% “Functions of Multiple Instances for Learning Target Signatures,”  
-% IEEE transactions on Geoscience and Remote Sensing, DOI: 10.1109/TGRS.2015.2406334
+% Functions of Multiple Instances for Learning Target Signatures,? 
+% IEEE transactions on Geoscience and Remote Sensing, Vol. 53, No. 8, Aug. 2015, DOI: 10.1109/TGRS.2015.2406334
 %
 % SYNTAX : [E,P]=eFUMI_VCA_initialize(X,labels,parameters)
 
@@ -15,6 +15,7 @@ function [E,P]=eFUMI_VCA_initialize(X,labels,parameters)
 %   labels - binary values, the same size as input data, indicates positive bags with logical '1'
 %
 % Outputs:
+%   Data_pre - preprocessed data after normalization denoted by parameters.norm_flag
 %   E - Initial Endmembers value, d and M account for wavelength bands and number of background endmembers,respectively
 %   P - Initial Proportion Values, M+1 by N, N accounts for the total number of input data
 %
@@ -67,6 +68,15 @@ X_plus=X(:,index_plus);
 X_minus=X(:,index_minus);
 N_plus=size(X_plus,2);
 N_minus=size(X_minus,2);
+
+% pre process data
+if parameters.norm_flag==1
+    Data_pre=normalize(X,1);
+elseif parameters.norm_flag==2
+    Data_pre=normalize(X,2);
+else
+    Data_pre=X;
+end
 
 %E initialization
 

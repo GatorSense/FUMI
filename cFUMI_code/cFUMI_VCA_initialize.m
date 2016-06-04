@@ -4,8 +4,8 @@ function [E,P]=cFUMI_VCA_initialize(X,labels,parameters)
 
 % REFERENCE :
 % C. Jiao, A. Zare, 
-% “Functions of Multiple Instances for Learning Target Signatures,”  
-% IEEE transactions on Geoscience and Remote Sensing, DOI: 10.1109/TGRS.2015.2406334
+% Functions of Multiple Instances for Learning Target Signatures,? 
+% IEEE transactions on Geoscience and Remote Sensing, Vol. 53, No. 8, Aug. 2015, DOI: 10.1109/TGRS.2015.2406334
 %
 % SYNTAX : [E,P]=cFUMI_VCA_initialize(X,labels,parameters)
 
@@ -77,7 +77,7 @@ e_t=X_plus(:,idx_et);
 
 E=[e_t E_minus];
 
-if parameters.flag_E==1
+if parameters.flag_E==2
     E=normalize(E,2);
 end
 

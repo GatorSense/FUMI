@@ -5,8 +5,8 @@ function parameters= eFUMI_parameters()
 
 % REFERENCE :
 % C. Jiao, A. Zare, 
-% “Functions of Multiple Instances for Learning Target Signatures,”  
-% IEEE transactions on Geoscience and Remote Sensing, DOI: 10.1109/TGRS.2015.2406334
+% Functions of Multiple Instances for Learning Target Signatures,? 
+% IEEE transactions on Geoscience and Remote Sensing, Vol. 53, No. 8, Aug. 2015, DOI: 10.1109/TGRS.2015.2406334
 %
 % SYNTAX: parameters= eFUMI_parameters()
 
@@ -24,6 +24,8 @@ function parameters= eFUMI_parameters()
 %    parameters.endmemberPruneThreshold: Prune E(:, i) when max(P(i, :))<this threshold
 %    parameters.flag_E: 0, don’t normalize E; 2,normalize esch endmember has unit norm after each iteration
 %    parameters.beta: coefficient scaling the distance of current points to the space of background endmembers in calculating Prob_Z 
+%    parameters.init_flag: initialization method, 1, using VCA for hyperspectral data; 2, using keams for general problem
+%    parameters.norm_flag: normalization method, 0, don't normalize data; 1, normalize data globaly between [0,1]; 2, normalize data individually to have norm 1
 
 % Author: Changzhe Jiao, Alina Zare
 % University of Missouri, Department of Electrical and Computer Engineering
@@ -71,5 +73,7 @@ function parameters= eFUMI_parameters()
     parameters.endmemberPruneThreshold=1e-3;
     parameters.flag_E=0;
     parameters.beta=45;
+    parameters.init_flag=1;
+    parameters.norm_flag=0;
     
 end
