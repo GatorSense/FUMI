@@ -1,4 +1,4 @@
-function [E, P]=eFUMI(Inputdata,labels,parameters, init_T)
+function [E, P]=eFUMI(Inputdata,labels,parameters)
 
 % eFUMI (extended Functions of Multiple Instances): semi-supervised target concept learning algorithm
 
@@ -94,9 +94,6 @@ elseif parameters.init_flag==2
 end
 
 E=E_initial;
-if(nargin > 3)
-    E(:,1) = init_T;
-end
 obj_func=inf;
 Cond=inf;
 
